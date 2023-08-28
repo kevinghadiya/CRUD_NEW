@@ -14,6 +14,15 @@ class UserController extends Controller
 
     function addUser(Request $req)
     {
+        $req->validate([
+            'userName' => 'required',
+            'userEmail' => 'required|email',
+            'userAge' => 'required|numeric|min:18|max:40',
+            'userCity' => 'required',
+        ]);
+            
+
+
         $addUser = DB::table('user')
             ->insert([
                 'name' => $req->userName,
@@ -21,14 +30,18 @@ class UserController extends Controller
                 'age' => $req->userAge,
                 'city' => $req->userCity,
             ]);
-        if ($addUser) {
-            return redirect()->route('allUser');
-        }
+           if ($addUser) {
+                return redirect()->route('allUser');
+
+            }
+            
     }
 
     function allUSer()
     {
-        $allUser = DB::table('user')->get();
+        $allUser = DB::table('user')
+            ->select('id', 'name', 'email')
+            ->get();
         return view('welcome', ['data' => $allUser]);
     }
 
@@ -53,9 +66,9 @@ class UserController extends Controller
     function updetpage(string $id)
     {
         $updetpage = DB::table('user')
-        ->where('id', $id)
-        ->get();
-        return view('updetUser',['data'=>$updetpage ]);
+            ->where('id', $id)
+            ->get();
+        return view('updetUser', ['data' => $updetpage]);
     }
 
     function updetUser(Request $req, $id)
@@ -68,9 +81,9 @@ class UserController extends Controller
                 'age' => $req->age,
                 'city' => $req->city,
             ]);
-            
+
         if ($updetUser) {
-            return redirect()->route('singleUser',$id);
+            return redirect()->route('singleUser', $id);
         }
     }
 
