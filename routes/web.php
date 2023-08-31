@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('home');   
 
 route::controller(UserController::class)->group(function(){
 
@@ -31,5 +31,15 @@ route::controller(UserController::class)->group(function(){
 
     route::get('/updetpage/{id}', 'updetpage' )->name('updetPage');
     route::post('/updetUser/{id}', 'updetUser' )->name('updetUser');
-
+    
 }); 
+
+route::controller(loginController::class)->group(function(){
+
+    route::get('/login', 'login')->name('loginpage');
+    route::post('/login', 'adduser')->name('loginpost');
+
+    route::get('/signin', 'signin')->name('signin');
+    route::post('/signpost', 'loginPost')->name('signinPost');
+
+});

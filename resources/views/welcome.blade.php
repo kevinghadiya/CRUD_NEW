@@ -13,7 +13,7 @@
         <nav class="d-flex justify-content-between px-2 rounded  m-2 align-items-center bg-secondary">
 
             <h2 class="text-white">User Data</h2>
-            <a href="{{ route('userPage') }}" class="btn btn-success">Add User</a>
+            <a href="{{ route('userPage') }}" class="btn btn-light text-black">Add User</a>
 
         </nav>
         <table class="table">
